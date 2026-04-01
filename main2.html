@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ayam Pok – POKoknya Bikin Happy!</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red-dark: #8B1010;
+    --red-main: #B91C1C;
+    --red-bright: #DC2626;
+    --red-light: #FEE2E2;
+    --cream: #FFF8F0;
+    --warm-white: #FFFAF5;
+    --charcoal: #1A0A0A;
+    --text-muted: #6B2626;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--warm-white);
+    color: var(--charcoal);
+    overflow-x: hidden;
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 40px;
+    background: rgba(255,248,240,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(185,28,28,0.12);
+  }
+  .nav-logo { height: 52px; }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a {
+    text-decoration: none; color: var(--red-dark);
+    font-weight: 700; font-size: 0.9rem; letter-spacing: 0.04em;
+    text-transform: uppercase; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--red-bright); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    background: radial-gradient(ellipse 80% 80% at 50% 60%, #fff0f0 0%, var(--warm-white) 70%);
+    padding-top: 80px;
+  }
+
+  .hero-bg-pattern {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      radial-gradient(circle at 10% 20%, rgba(185,28,28,0.06) 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(185,28,28,0.08) 0%, transparent 40%);
+  }
+
+  /* Logo hero */
+  .rooster-anim {
+    position: relative; z-index: 2;
+    width: 220px; margin-bottom: 10px;
+    filter: drop-shadow(0 20px 40px rgba(185,28,28,0.25));
+  }
+
+  .hero-badge {
+    background: var(--red-bright); color: #fff;
+    font-size: 0.75rem; font-weight: 800; letter-spacing: 0.12em;
+    text-transform: uppercase; padding: 6px 18px; border-radius: 100px;
+    margin-bottom: 20px; animation: pulseBadge 2s ease-in-out infinite;
+    position: relative; z-index: 2;
+  }
+  @keyframes pulseBadge {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(220,38,38,0.4); }
+    50%       { box-shadow: 0 0 0 10px rgba(220,38,38,0); }
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    color: var(--red-dark);
+    letter-spacing: 0.02em;
+    line-height: 1;
+    text-align: center;
+    position: relative; z-index: 2;
+    animation: slideUp 0.8s ease both;
+  }
+  .hero-title .pok { color: var(--red-bright); }
+
+  .hero-sub {
+    font-size: clamp(1rem, 3vw, 1.35rem);
+    color: var(--text-muted); font-weight: 700;
+    margin-top: 14px; margin-bottom: 36px;
+    letter-spacing: 0.04em; text-align: center;
+    position: relative; z-index: 2;
+    animation: slideUp 0.9s 0.15s ease both;
+  }
+
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--red-main); color: #fff;
+    font-family: 'Nunito', sans-serif; font-weight: 800;
+    font-size: 1rem; letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 16px 36px; border-radius: 100px; text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 24px rgba(185,28,28,0.4);
+    position: relative; z-index: 2;
+    animation: slideUp 1s 0.3s ease both;
+  }
+  .hero-cta:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 14px 32px rgba(185,28,28,0.5); }
+
+  /* Flame spark animation */
+  .sparks { position: absolute; bottom: 60px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; pointer-events: none; }
+  .spark {
+    width: 4px; border-radius: 100px;
+    background: linear-gradient(to top, var(--red-bright), #FCD34D);
+    animation: sparkRise 1.4s ease-in-out infinite;
+  }
+  .spark:nth-child(1) { height: 24px; animation-delay: 0s; }
+  .spark:nth-child(2) { height: 36px; animation-delay: 0.2s; }
+  .spark:nth-child(3) { height: 28px; animation-delay: 0.4s; }
+  .spark:nth-child(4) { height: 40px; animation-delay: 0.1s; }
+  .spark:nth-child(5) { height: 20px; animation-delay: 0.3s; }
+  @keyframes sparkRise {
+    0%   { transform: scaleY(1) translateY(0);   opacity: 1; }
+    80%  { transform: scaleY(0.4) translateY(-20px); opacity: 0.6; }
+    100% { transform: scaleY(0) translateY(-30px);   opacity: 0; }
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .scroll-arrow {
+    position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    color: var(--red-main); font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase; z-index: 2;
+    animation: bounce 2s ease infinite;
+  }
+  .scroll-arrow svg { width: 20px; height: 20px; }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%       { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 100px 20px; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--red-bright); margin-bottom: 10px; text-align: center;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    color: var(--red-dark); text-align: center; letter-spacing: 0.02em;
+    margin-bottom: 14px;
+  }
+  .section-desc {
+    text-align: center; color: var(--text-muted); font-size: 1rem;
+    font-weight: 600; max-width: 520px; margin: 0 auto 52px;
+    line-height: 1.7;
+  }
+
+  /* ── MENU SLIDE ── */
+  #menu { background: var(--cream); }
+
+  .slider-wrapper { position: relative; max-width: 900px; margin: 0 auto; }
+
+  .slider { display: flex; gap: 0; overflow: hidden; border-radius: 24px; }
+
+  .slide {
+    min-width: 100%; display: flex; flex-direction: column; align-items: center;
+    justify-content: center; padding: 50px 40px 60px;
+    transition: opacity 0.5s ease;
+    background: #fff; border-radius: 24px;
+    box-shadow: 0 4px 32px rgba(185,28,28,0.10);
+  }
+
+  .slide-emoji {
+    font-size: 5rem; margin-bottom: 18px;
+    animation: none;
+    transition: transform 0.4s;
+    filter: drop-shadow(0 8px 16px rgba(0,0,0,0.15));
+  }
+  .slide:hover .slide-emoji { transform: scale(1.12) rotate(-5deg); }
+
+  .slide-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.6rem; color: var(--red-dark);
+    letter-spacing: 0.04em; text-align: center;
+  }
+  .slide-desc {
+    font-size: 0.95rem; color: var(--text-muted); font-weight: 600;
+    text-align: center; max-width: 400px; margin-top: 10px; line-height: 1.6;
+  }
+  .slide-price {
+    font-size: 1.6rem; font-weight: 900; color: var(--red-bright);
+    margin-top: 22px; letter-spacing: 0.02em;
+  }
+  .slide-tag {
+    background: var(--red-light); color: var(--red-dark);
+    font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 100px; margin-top: 12px;
+    display: inline-block;
+  }
+
+  .slider-nav {
+    display: flex; justify-content: center; gap: 12px; margin-top: 28px;
+  }
+  .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: rgba(185,28,28,0.2); cursor: pointer;
+    transition: all 0.3s; border: none; outline: none;
+  }
+  .dot.active { background: var(--red-main); width: 28px; border-radius: 100px; }
+
+  .slider-btn {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--red-main); color: #fff; border: none; cursor: pointer;
+    font-size: 1.3rem; display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; z-index: 10;
+    box-shadow: 0 4px 14px rgba(185,28,28,0.35);
+  }
+  .slider-btn:hover { background: var(--red-dark); transform: translateY(-50%) scale(1.08); }
+  .slider-btn.prev { left: -24px; }
+  .slider-btn.next { right: -24px; }
+
+  /* ── LOKASI ── */
+  #lokasi { background: var(--warm-white); }
+
+  .map-card {
+    max-width: 720px; margin: 0 auto; border-radius: 24px; overflow: hidden;
+    box-shadow: 0 8px 40px rgba(185,28,28,0.14);
+    cursor: pointer; display: block; text-decoration: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+  }
+  .map-card:hover { transform: translateY(-6px); box-shadow: 0 16px 56px rgba(185,28,28,0.22); }
+
+  .map-visual {
+    width: 100%; height: 340px;
+    background: linear-gradient(135deg, #e8f4fd 0%, #d4edda 40%, #c8e6c9 70%, #b2dfdb 100%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .map-visual::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(99,155,34,0.08) 0, rgba(99,155,34,0.08) 1px, transparent 1px, transparent 40px),
+      repeating-linear-gradient(90deg, rgba(99,155,34,0.08) 0, rgba(99,155,34,0.08) 1px, transparent 1px, transparent 40px);
+  }
+  .map-roads {
+    position: absolute; inset: 0; opacity: 0.35;
+  }
+  .map-pin {
+    position: relative; z-index: 2;
+    display: flex; flex-direction: column; align-items: center;
+    animation: pinBounce 2s ease infinite;
+  }
+  .map-pin-icon {
+    width: 56px; height: 56px; border-radius: 50% 50% 50% 0;
+    background: var(--red-main); transform: rotate(-45deg);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 24px rgba(185,28,28,0.5);
+  }
+  .map-pin-icon span { transform: rotate(45deg); font-size: 1.5rem; }
+  .map-pin-shadow {
+    width: 20px; height: 8px; background: rgba(0,0,0,0.25);
+    border-radius: 50%; margin-top: 4px;
+    animation: shadowPulse 2s ease infinite;
+    filter: blur(2px);
+  }
+  @keyframes pinBounce {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-10px); }
+  }
+  @keyframes shadowPulse {
+    0%, 100% { transform: scaleX(1); opacity: 0.25; }
+    50%       { transform: scaleX(0.6); opacity: 0.1; }
+  }
+
+  .map-info {
+    background: var(--red-main); padding: 22px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .map-info-text h3 {
+    color: #fff; font-size: 1.2rem; font-weight: 800; margin-bottom: 4px;
+  }
+  .map-info-text p { color: rgba(255,255,255,0.8); font-size: 0.88rem; font-weight: 600; }
+  .map-open-btn {
+    background: #fff; color: var(--red-main);
+    font-weight: 800; font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 10px 22px; border-radius: 100px; white-space: nowrap;
+    transition: transform 0.2s;
+  }
+  .map-card:hover .map-open-btn { transform: scale(1.05); }
+
+  /* ── PESAN ── */
+  #pesan {
+    background: var(--red-dark);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  #pesan::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.04) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 20%, rgba(255,255,255,0.06) 0%, transparent 50%);
+  }
+
+  .pesan-logo {
+    width: 120px; margin-bottom: 10px;
+    filter: brightness(0) invert(1) drop-shadow(0 8px 16px rgba(0,0,0,0.4));
+    position: relative; z-index: 2;
+  }
+
+  .pesan-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    color: #fff; letter-spacing: 0.03em;
+    margin-bottom: 12px; position: relative; z-index: 2;
+  }
+  .pesan-sub {
+    color: rgba(255,255,255,0.7); font-size: 1rem; font-weight: 600;
+    margin-bottom: 40px; max-width: 400px; line-height: 1.6;
+    position: relative; z-index: 2;
+  }
+  .wa-btn {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: #25D366; color: #fff;
+    font-weight: 900; font-size: 1.1rem; letter-spacing: 0.04em;
+    padding: 18px 44px; border-radius: 100px; text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 8px 32px rgba(37,211,102,0.4);
+    position: relative; z-index: 2;
+    animation: waPulse 2.5s ease-in-out infinite;
+  }
+  .wa-btn:hover { transform: scale(1.07); box-shadow: 0 14px 44px rgba(37,211,102,0.55); }
+  @keyframes waPulse {
+    0%, 100% { box-shadow: 0 8px 32px rgba(37,211,102,0.4); }
+    50%       { box-shadow: 0 8px 48px rgba(37,211,102,0.65); }
+  }
+  .wa-icon { width: 28px; height: 28px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--charcoal);
+    padding: 48px 20px 36px;
+    text-align: center;
+  }
+  .footer-logo { height: 50px; margin-bottom: 20px; filter: brightness(0) invert(1) opacity(0.85); }
+  .footer-est {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem; color: rgba(255,255,255,0.35); letter-spacing: 0.2em;
+    margin-bottom: 20px;
+  }
+  .footer-links { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-bottom: 28px; }
+  .footer-link {
+    display: flex; align-items: center; gap: 8px;
+    color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.88rem; font-weight: 600;
+    transition: color 0.2s;
+  }
+  .footer-link:hover { color: #fff; }
+  .footer-link svg { width: 17px; height: 17px; }
+  .footer-bottom {
+    font-size: 0.78rem; color: rgba(255,255,255,0.25); font-weight: 600; letter-spacing: 0.05em;
+  }
+
+  /* Mobile */
+  @media (max-width: 680px) {
+    nav { padding: 12px 20px; }
+    .nav-links { display: none; }
+    .slider-btn.prev { left: -10px; }
+    .slider-btn.next { right: -10px; }
+    section { padding: 70px 16px; }
+    .map-info { flex-direction: column; gap: 14px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <img src="assets/ayampok.png" alt="Ayam Pok" class="nav-logo"
+       onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+  <span style="display:none; font-family:'Bebas Neue',sans-serif; font-size:1.6rem; color:#8B1010; letter-spacing:0.06em;">AYAM POK</span>
+  <div class="nav-links">
+    <a href="#hero">Home</a>
+    <a href="#menu">Menu</a>
+    <a href="#lokasi">Lokasi</a>
+    <a href="#pesan">Pesan</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-pattern"></div>
+
+  <div class="hero-badge">🔥 Makanan Khas Nusantara</div>
+
+  <img src="assets/ayampokbgrem.png" alt="Ayam Pok" class="rooster-anim">
+
+  <h1 class="hero-title"><span class="pok">POK</span>oknya<br>Bikin Happy!</h1>
+  <p class="hero-sub">Cita rasa Nusantara yang bikin ketagihan 🇮🇩</p>
+
+  <a href="#pesan" class="hero-cta">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Pesan Sekarang!
+  </a>
+
+  <div class="sparks">
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+  </div>
+
+  <div class="scroll-arrow">
+    <span>Lihat Menu</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 9l-7 7-7-7"/></svg>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <p class="section-label">✨ Menu Andalan</p>
+  <h2 class="section-title">Menu Ayam Pok</h2>
+  <p class="section-desc">Dimasak dengan bumbu rahasia pilihan, cocok untuk makan siang hingga makan malam keluarga!</p>
+
+  <div class="slider-wrapper">
+    <button class="slider-btn prev" onclick="changeSlide(-1)">&#8249;</button>
+    <div class="slider" id="slider">
+
+      <div class="slide">
+        <div class="slide-emoji">🍗</div>
+        <div class="slide-name">Nasi Ayam Bumbu Bali</div>
+        <div class="slide-desc">Ayam dengan bumbu base genep khas Bali, kaya rempah dan harum menggiurkan, disajikan dengan nasi putih hangat.</div>
+        <div class="slide-price">Hubungi Kami</div>
+        <span class="slide-tag">⭐ Menu Andalan</span>
+      </div>
+
+      <div class="slide">
+        <div class="slide-emoji">🍖</div>
+        <div class="slide-name">Nasi Ayam Bumbu Rendang</div>
+        <div class="slide-desc">Cita rasa rendang Minang yang kaya santan dan rempah pilihan, meresap hingga ke dalam daging ayam yang empuk.</div>
+        <div class="slide-price">Hubungi Kami</div>
+        <span class="slide-tag">🔥 Favorit Pelanggan</span>
+      </div>
+
+      <div class="slide">
+        <div class="slide-emoji">🌶️</div>
+        <div class="slide-name">Nasi Ayam Bumbu Woku</div>
+        <div class="slide-desc">Bumbu woku khas Manado dengan kemangi, kunyit, dan cabai segar — pedas segar yang bikin nagih tiap hari!</div>
+        <div class="slide-price">Hubungi Kami</div>
+        <span class="slide-tag">🌶️ Khas Manado</span>
+      </div>
+
+    </div>
+    <button class="slider-btn next" onclick="changeSlide(1)">&#8250;</button>
+  </div>
+
+  <div class="slider-nav" id="dots"></div>
+</section>
+
+<!-- LOKASI -->
+<section id="lokasi">
+  <p class="section-label">📍 Temukan Kami</p>
+  <h2 class="section-title">Lokasi Kami</h2>
+  <p class="section-desc">Klik peta di bawah untuk mendapatkan rute langsung ke lokasi Ayam Pok Manado!</p>
+
+  <a class="map-card" href="https://maps.app.goo.gl/GANTILINKRUTAMU" target="_blank" rel="noopener">
+    <!-- Map visual -->
+    <div class="map-visual">
+      <!-- Road grid SVG -->
+      <svg class="map-roads" viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+        <!-- Horizontal roads -->
+        <rect x="0" y="80" width="720" height="10" fill="#d4c5a0" rx="2"/>
+        <rect x="0" y="180" width="720" height="14" fill="#c8b896" rx="2"/>
+        <rect x="0" y="280" width="720" height="8" fill="#d4c5a0" rx="2"/>
+        <!-- Vertical roads -->
+        <rect x="120" y="0" width="12" height="340" fill="#c8b896" rx="2"/>
+        <rect x="320" y="0" width="16" height="340" fill="#baa880" rx="2"/>
+        <rect x="540" y="0" width="10" height="340" fill="#c8b896" rx="2"/>
+        <!-- Blocks -->
+        <rect x="8" y="8" width="100" height="68" fill="#b8d4a8" rx="4" opacity="0.5"/>
+        <rect x="136" y="8" width="176" height="68" fill="#c8dab8" rx="4" opacity="0.4"/>
+        <rect x="340" y="8" width="192" height="68" fill="#b8d4a8" rx="4" opacity="0.45"/>
+        <rect x="8" y="94" width="100" height="82" fill="#c8dab8" rx="4" opacity="0.45"/>
+        <rect x="136" y="94" width="176" height="82" fill="#b8d4a8" rx="4" opacity="0.4"/>
+        <rect x="340" y="94" width="192" height="82" fill="#c8dab8" rx="4" opacity="0.4"/>
+        <rect x="556" y="94" width="156" height="82" fill="#b8d4a8" rx="4" opacity="0.4"/>
+        <rect x="8" y="196" width="100" height="80" fill="#b8d4a8" rx="4" opacity="0.45"/>
+        <rect x="136" y="196" width="176" height="80" fill="#c8dab8" rx="4" opacity="0.4"/>
+        <rect x="340" y="196" width="192" height="80" fill="#b8d4a8" rx="4" opacity="0.4"/>
+        <!-- Water -->
+        <rect x="556" y="196" width="156" height="136" fill="#a8cce8" rx="4" opacity="0.4"/>
+        <text x="634" y="260" fill="#5588aa" font-size="9" text-anchor="middle" font-weight="600" opacity="0.7">Teluk Manado</text>
+      </svg>
+
+      <!-- Pin -->
+      <div class="map-pin">
+        <div class="map-pin-icon"><img src="assets/ayampokbgrem.png" alt="" style="width:32px;height:32px;object-fit:contain;transform:rotate(45deg);"></div>
+        <div class="map-pin-shadow"></div>
+      </div>
+    </div>
+
+    <div class="map-info">
+      <div class="map-info-text">
+        <h3>Ayam Pok – Manado</h3>
+        <p>Sulawesi Utara • Klik untuk rute Google Maps</p>
+      </div>
+      <div class="map-open-btn">Buka Maps →</div>
+    </div>
+  </a>
+</section>
+
+<!-- PESAN -->
+<section id="pesan">
+  <img src="assets/ayampokbgrem.png" alt="Ayam Pok" class="pesan-logo">
+  <h2 class="pesan-title">Mau Order?<br>Gampang Banget!</h2>
+  <p class="pesan-sub">Langsung chat kami di WhatsApp dan pesanan kamu langsung kami proses dengan cepat! 🚀</p>
+
+  <a class="wa-btn" href="https://wa.me/6281241697773?text=Halo%20Ayam%20Pok!%20Saya%20mau%20pesan" target="_blank" rel="noopener">
+    <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+    Pesan Disini!
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <img src="assets/ayampokbgrem.png" alt="Ayam Pok" class="footer-logo"
+       onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+  <p style="display:none; font-family:'Bebas Neue',sans-serif; font-size:2rem; color:rgba(255,255,255,0.8); letter-spacing:0.08em; margin-bottom:16px;">AYAM POK</p>
+
+  <p class="footer-est">EST 2026</p>
+
+  <div class="footer-links">
+    <a class="footer-link" href="https://instagram.com/ayampok_id" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      @ayampok_id
+    </a>
+    <a class="footer-link" href="/cdn-cgi/l/email-protection#bddcc4dcd0cdd2d693d4d9fddad0dcd4d193ded2d0">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      <span class="__cf_email__" data-cfemail="e2839b838f928d89cc8b86a2858f838b8ecc818d8f">[email&#160;protected]</span>
+    </a>
+    <a class="footer-link" href="https://wa.me/6281241697773" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      +62 812-4169-7773
+    </a>
+  </div>
+
+  <p class="footer-bottom">© 2026 Ayam Pok. All rights reserved. Made with ❤️ in Manado 🇮🇩</p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const slides = document.querySelectorAll('.slide');
+  const dotsEl = document.getElementById('dots');
+  let current = 0;
+  let autoTimer;
+
+  slides.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  });
+
+  function goTo(n) {
+    current = (n + slides.length) % slides.length;
+    const slider = document.getElementById('slider');
+    slider.scrollTo({ left: current * slider.offsetWidth, behavior: 'smooth' });
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+  }
